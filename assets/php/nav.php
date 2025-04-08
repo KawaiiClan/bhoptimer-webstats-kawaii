@@ -3,16 +3,21 @@
 	<h1><?=TOPLEFT_TITLE?></h1>
 	<br><br>
 	<hr>
-	<?='<a href="'.SERVER_IP.'">Join Server</a>';?>
+	<?php $url = ($sv == 'bhop') ? 'index.php?sv=climb' : 'index.php?sv=bhop';?>
+	<?php $url = (isset($u)) ? $url.'&u='.$u : $url;?>
+	<?php $url = ($rr) ? $url.'&rr=1' : $url;?>
+	<?php $url = ($rt) ? $url.'&rt=1' : $url;?>
+	<?php echo ($sv == 'bhop') ? '<a href="'.$url.'">Server - Bhop</a>' : '<a href="'.$url.'">Server - Climb</a>'; ?>
 	<hr>
-	<a href="index.php">Top Players</a>
-	<a href="index.php?rr=1">Recent Records</a>
-	<a href="index.php?rt=1">Recent Times</a>
+	<a href="index.php?sv=<?=$sv?>">Top Players</a>
+	<a href="index.php?sv=<?=$sv?>&rr=1">Recent Records</a>
+	<a href="index.php?sv=<?=$sv?>&rt=1">Recent Times</a>
 	<hr>
 	<br>
 	Go to map:
 	<br><br>
 	<form action="index.php" method="GET">
+		<input type="hidden" name="sv" id="sv" value="<?php echo $sv;?>" />
 		<select style="max-width: 80%;" name="m" class="form-control" onchange="this.form.submit()" required>
 			<option value="" selected="selected">None</option>
 <?php
@@ -37,6 +42,7 @@
 	([U:1:XXXXXX] or username)
 	<br><br>
 	<form id="search" method="GET">
+		<input type="hidden" name="sv" id="sv" value="<?php echo $sv;?>" />
 		<input type="text" name="u" aria-label="..." placeholder="SteamID3 or Username" value="<?=(isset($u))?$u:''?>"/>
 			<button type="submit" class="btn btn-primary">Search</button>
 	</form>
