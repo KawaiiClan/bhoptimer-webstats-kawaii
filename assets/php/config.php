@@ -12,6 +12,14 @@ define('PLAYER_PAGE_LIMIT', '100');
 //API key (https://steamcommunity.com/dev) used for getting steam profile info on user page
 define('API_KEY', '');
 
+//link to your website home page (ie. directory above /stats) if you don't have one, you can just use "index.php" to go to the main stats page
+define('HOME_SITE', 'https://kawaiiclan.com');
+
+//directory to use for map screenshot files. by default, it will use "assets/img/maps/". the trailing "/" is required!
+//if you use sourcebans or something you can use that folder instead so they are unified (ie. "../sourcebans/images/maps/")
+//valid file types to fill this folder with are .jpg or .png
+define('MAP_SC_DIR', '../sourcebans/images/maps/');
+
 //silly timer, so many tracks.. remove some if you don't use them
 $tracks =
 [
@@ -30,12 +38,15 @@ $tracks =
 //server stuff
 if($sv == 'bhop')
 {
+	//db
 	define('DB_HOST', '');
 	define('DB_USER', '');
 	define('DB_PASSWORD', '');
 	define('DB_SCHEMA', '');
+	//this one is often left blank, unless you have a prefix in your db (i guess some server hosts do this?)
 	define('MYSQL_PREFIX', '');
 	
+	//steam link to join game server with (just replace "kawaiiclan.com:27015" with your game server IP:port
 	define('SERVER_IP', 'steam://connect/kawaiiclan.com:27015');
 	
 	$styles =
@@ -70,12 +81,15 @@ if($sv == 'bhop')
 }
 elseif($sv == 'climb')
 {
+	//db
 	define('DB_HOST', '');
 	define('DB_USER', '');
 	define('DB_PASSWORD', '');
 	define('DB_SCHEMA', '');
+	//this one is often left blank, unless you have a prefix in your db (i guess some server hosts do this?)
 	define('MYSQL_PREFIX', '');
 	
+	//steam link to join game server with (just replace "kawaiiclan.com:27015" with your game server IP:port
 	define('SERVER_IP', 'steam://connect/kawaiiclan.com:27016');
 	
 	$styles =
