@@ -190,8 +190,8 @@ else
 ?>
 				<table>
 					<thead>
+						<th></th>
 						<th>Name</th>
-						<th>SteamID</th>
 						<th>Points</th>
 						<th>Last Login</th>
 					</thead>
@@ -199,13 +199,11 @@ else
 			}
 ?>
 					<tr>
+						<td><center>
+							<?php $steamid = SteamID::Parse($auth, SteamID::FORMAT_S32);
+							echo '<a href="https://steamcommunity.com/profiles/'.$steamid->Format(SteamID::FORMAT_STEAMID64).'/" target="_blank"><img src="assets/img/steam-icon.png"></img></a>'; ?>
+						</center></td>
 						<td><a href="index.php?sv=<?=$sv?>&u=<?='[U:1:'.$auth.']'?>"><?=$name?></a></td>
-						<td>
-<?php
-							$steamid = SteamID::Parse($auth, SteamID::FORMAT_S32);
-							echo '<a href="https://steamcommunity.com/profiles/'.$steamid->Format(SteamID::FORMAT_STEAMID64).'/" target="_blank">'.$auth.'</a>';
-?>
-						</td>
 						<td><?=number_format($points, 2)?></td>
 						<td><?=($lastlogin>0)?date('j M Y', $lastlogin):'Unknown'?></td>
 					</tr>
