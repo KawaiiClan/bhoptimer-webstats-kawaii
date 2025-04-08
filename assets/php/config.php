@@ -1,7 +1,7 @@
 <?php
 //titles (change the favicon by replacing "assets/img/favicon.png")
-define('HOMEPAGE_TITLE', 'Timer Stats');
-define('TOPLEFT_TITLE', 'Timer Stats');
+define('HOMEPAGE_TITLE', 'KawaiiClan Stats');
+define('TOPLEFT_TITLE', 'KawaiiClan Stats');
 
 //limits for number of times retrieved/displayed on different pages
 define('RECORD_LIMIT', '100');
@@ -12,26 +12,7 @@ define('PLAYER_PAGE_LIMIT', '100');
 //API key (https://steamcommunity.com/dev) used for getting steam profile info on user page
 define('API_KEY', '');
 
-//db
-define('DB_HOST', '');
-define('DB_USER', '');
-define('DB_PASSWORD', '');
-define('DB_SCHEMA', '');
-//this one is often left blank, unless you have a prefix in your db (i guess some server hosts do this?)
-define('MYSQL_PREFIX', '');
-
-//steam link to join game server with (just replace "kawaiiclan.com:27015" with your game server IP:port
-define('SERVER_IP', 'steam://connect/kawaiiclan.com:27015');
-
-//link to your website home page (ie. directory above /stats) if you don't have one, you can just use "index.php" to go to the main stats page
-define('HOME_SITE', 'https://kawaiiclan.com');
-
-//directory to use for map screenshot files. by default, it will use "assets/img/maps/". the trailing "/" is required!
-//if you use sourcebans or something you can use that folder instead so they are unified (ie. "../sourcebans/images/maps/")
-//valid file types to fill this folder with are .jpg or .png
-define('MAP_SC_DIR', 'assets/img/maps/');
-
-//silly timer, so many tracks.. remove some if you don't use them and want to clean up the dropdown
+//silly timer, so many tracks.. remove some if you don't use them
 $tracks =
 [
 	-1 => 'All Tracks',
@@ -46,25 +27,83 @@ $tracks =
 	8 => 'Bonus8',
 ];
 
-//styles appear in the order they are listed here, reference your shavit-styles.cfg to match id => name
-//if you want to have the option to show all styles on a page, use -1 => "All" for that option
-$styles =
-[
+//server stuff
+if($sv == 'bhop')
+{
+	define('DB_HOST', '');
+	define('DB_USER', '');
+	define('DB_PASSWORD', '');
+	define('DB_SCHEMA', '');
+	define('MYSQL_PREFIX', '');
+	
+	define('SERVER_IP', 'steam://connect/kawaiiclan.com:27015');
+	
+	$styles =
+	[
 	-1 => "All Styles",
 	0 => "Normal",
 	8 => "Scroll",
 	5 => "EZScroll",
+	15 => "Strafe",
+	20 => "10aa",
 	3 => "Stamina",
 	1 => "Sideways",
 	2 => "W-Only",
 	4 => "Half-Sideways",
 	6 => "Surf HSW",
+	9 => "A/D Only",
+	18 => "WA/WD Only",
+	10 => "Backwards",
 	7 => "Prespeed",
-];
-
-//default track and style displayed on the map page (you can use -1 for all, but it makes more sense to have a default one set on this page)
-define('DEFAULT_TRACK', 0);
-define('DEFAULT_STYLE', 0);
+	13 => "Low Gravity",
+	11 => "Parkour",
+	12 => "Unreal",
+	17 => "Thanos",
+	19 => "Speedrun",
+	14 => "Segmented",
+	16 => "TAS"
+	];
+	
+	//default track and style displayed on the map page
+	define('DEFAULT_TRACK', 0);
+	define('DEFAULT_STYLE', 0);
+}
+elseif($sv == 'climb')
+{
+	define('DB_HOST', '');
+	define('DB_USER', '');
+	define('DB_PASSWORD', '');
+	define('DB_SCHEMA', '');
+	define('MYSQL_PREFIX', '');
+	
+	define('SERVER_IP', 'steam://connect/kawaiiclan.com:27016');
+	
+	$styles =
+	[
+	-1 => "All Styles",
+	3 => "Normal Pro",
+	0 => "Normal",
+	7 => "Strafe Pro",
+	6 => "Strafe",
+	11 => "10aa Pro",
+	10 => "10aa",
+	16 => "Vanilla Pro",
+	15 => "Vanilla",
+	4 => "Sideways Pro",
+	1 => "Sideways",
+	5 => "W-Only Pro",
+	2 => "W-Only",
+	18 => "A/D Only Pro",
+	17 => "A/D Only",
+	9 => "Low Gravity Pro",
+	8 => "Low Gravity",
+	14 => "Segmented"
+	];
+	
+	//default track and style displayed on the map page
+	define('DEFAULT_TRACK', 0);
+	define('DEFAULT_STYLE', 3);
+}
 
 //options for sorting times, logic needed for these, so you can't really add to it easily. more to come probably
 $filters =
