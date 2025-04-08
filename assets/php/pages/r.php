@@ -84,8 +84,8 @@ if($rows > 0)
 						<?php $steamid = SteamID::Parse($auth, SteamID::FORMAT_S32);
 						echo '<a href="https://steamcommunity.com/profiles/'.$steamid->Format(SteamID::FORMAT_STEAMID64).'/" target="_blank"><img src="assets/img/steam-icon.png"></img></a>'; ?>
 					</center></td>
-					<td><?='<a href="index.php?u=' . '[U:1:' . $auth . ']' . '">'.$name.'</a>'?></td>
-					<td><?='<a href="index.php?m='.$map.'">'.$map.'</a>'?></td>
+					<td><?='<a href="index.php?sv='.$sv.'&u=' . '[U:1:' . $auth . ']' . '">'.$name.'</a>'?></td>
+					<td><?='<a href="index.php?sv='.$sv.'&m='.$map.'">'.$map.'</a>'?></td>
 					<td><?=$tracks[$track]?></td>
 					<td><?=$styles[$style]?></td>
 					<td><?=formattoseconds($time)?></td>
