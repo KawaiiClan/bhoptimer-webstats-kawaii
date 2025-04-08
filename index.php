@@ -1,6 +1,7 @@
 <?php
 //using _GET requests so that you can link specific pages/filters to others by copying URL
 //eww sanitizing on define.. won't cause problems in this application though.. probably..
+$sv = (isset($_REQUEST['sv']) && ($_REQUEST['sv'] == 'bhop' || $_REQUEST['sv'] == 'climb')) ? $_REQUEST['sv'] : 'bhop';
 $s = isset($_REQUEST['s']) ? (int)$_REQUEST['s'] : -1;
 $t = isset($_REQUEST['t']) ? (int)$_REQUEST['t'] : -1;
 $u = isset($_REQUEST['u']) ? htmlspecialchars($_REQUEST['u']) : NULL;

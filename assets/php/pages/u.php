@@ -131,7 +131,7 @@ if(preg_match('/^\[U:1:([0-9]+)\]$/', $u, $matches))
 									{
 ?>
 										<tr>
-											<td><a href="index.php?m=<?=$tmap?>&t=<?=$ttrack?>&s=<?=$tstyle?>"><?=$tmap?></a></td>
+											<td><a href="index.php?sv=<?=$sv?>&m=<?=$tmap?>&t=<?=$ttrack?>&s=<?=$tstyle?>"><?=$tmap?></a></td>
 											<?=($t==-1)?'<td>'.$tracks[$ttrack].'</td>':''?>
 											<?=($s==-1)?'<td>'.$styles[$tstyle].'</td>':''?>
 											<td><?=formattoseconds($ttime)?></td>
@@ -203,7 +203,7 @@ else
 							<?php $steamid = SteamID::Parse($auth, SteamID::FORMAT_S32);
 							echo '<a href="https://steamcommunity.com/profiles/'.$steamid->Format(SteamID::FORMAT_STEAMID64).'/" target="_blank"><img src="assets/img/steam-icon.png"></img></a>'; ?>
 						</center></td>
-						<td><a href="index.php?u=<?='[U:1:'.$auth.']'?>"><?=$name?></a></td>
+						<td><a href="index.php?sv=<?=$sv?>&u=<?='[U:1:'.$auth.']'?>"><?=$name?></a></td>
 						<td><?=number_format($points, 2)?></td>
 						<td><?=($lastlogin>0)?date('j M Y', $lastlogin):'Unknown'?></td>
 					</tr>
