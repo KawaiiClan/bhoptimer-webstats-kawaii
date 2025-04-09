@@ -20,7 +20,7 @@ if(preg_match('/^\[U:1:([0-9]+)\]$/', $u, $matches))
 			$steamid64 = $authtemp->Format(SteamID::FORMAT_STEAMID64);
 			$response = SteamID::Curl("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" .  API_KEY . "&steamids=" . $steamid64);
 			$result = json_decode($response);
-			$img = ($result != NULL)?$result->response->players[0]->avatarfull:'None';
+			$img = ($result != NULL)?$result->response->players[0]->avatarfull:'assets/img/u.png';
 			$personaname = ($result != NULL)?$result->response->players[0]->personaname:'Unknown';
 			$stmt2 = $connection->prepare('SELECT lastlogin, points FROM '.MYSQL_PREFIX.'users WHERE auth = ' . $auth);
 			$stmt2->execute();
