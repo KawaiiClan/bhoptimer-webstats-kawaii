@@ -20,7 +20,7 @@ if(preg_match('/^\[U:1:([0-9]+)\]$/', $u, $matches))
 			$steamid64 = $authtemp->Format(SteamID::FORMAT_STEAMID64);
 			$response = SteamID::Curl("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" .  API_KEY . "&steamids=" . $steamid64);
 			$result = json_decode($response);
-			$img = ($result != NULL)?$result->response->players[0]->avatarfull:'None';
+			$img = ($result != NULL)?$result->response->players[0]->avatarfull:'assets/img/u.png';
 			$personaname = ($result != NULL)?$result->response->players[0]->personaname:'Unknown';
 			$stmt2 = $connection->prepare('SELECT lastlogin, points FROM '.MYSQL_PREFIX.'users WHERE auth = ' . $auth);
 			$stmt2->execute();
@@ -131,7 +131,7 @@ if(preg_match('/^\[U:1:([0-9]+)\]$/', $u, $matches))
 									{
 ?>
 										<tr>
-											<td><a href="index.php?sv=<?=$sv?>&m=<?=$tmap?>&t=<?=$ttrack?>&s=<?=$tstyle?>"><?=$tmap?></a></td>
+											<td><a href="index.php?m=<?=$tmap?>&t=<?=$ttrack?>&s=<?=$tstyle?>"><?=$tmap?></a></td>
 											<?=($t==-1)?'<td>'.$tracks[$ttrack].'</td>':''?>
 											<?=($s==-1)?'<td>'.$styles[$tstyle].'</td>':''?>
 											<td><?=formattoseconds($ttime)?></td>
@@ -203,7 +203,7 @@ else
 							<?php $steamid = SteamID::Parse($auth, SteamID::FORMAT_S32);
 							echo '<a href="https://steamcommunity.com/profiles/'.$steamid->Format(SteamID::FORMAT_STEAMID64).'/" target="_blank"><img src="assets/img/steam-icon.png"></img></a>'; ?>
 						</center></td>
-						<td><a href="index.php?sv=<?=$sv?>&u=<?='[U:1:'.$auth.']'?>"><?=$name?></a></td>
+						<td><a href="index.php?u=<?='[U:1:'.$auth.']'?>"><?=$name?></a></td>
 						<td><?=number_format($points, 2)?></td>
 						<td><?=($lastlogin>0)?date('j M Y', $lastlogin):'Unknown'?></td>
 					</tr>
