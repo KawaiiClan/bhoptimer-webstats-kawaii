@@ -91,7 +91,7 @@ if(preg_match('/^\[U:1:([0-9]+)\]$/', $u, $matches))
 ?>
 			<div>
 				<div>
-					<h1><?=($name == $personaname)?$name:$name.' ('.$personaname.')'?></h1>
+					<h1><?=($name == $personaname)?$name:$name.' (Now: "'.$personaname.'")'?></h1>
 					<?php $steamid = SteamID::Parse($auth, SteamID::FORMAT_S32);?>
 					<h2>[U:1:<?=$auth?>]&nbsp<a href="https://steamcommunity.com/profiles/<?=$steamid->Format(SteamID::FORMAT_STEAMID64)?>/" target="_blank"><img src="assets/img/steam-icon.png" style="max-height:15px;"></img></a></h2>
 					<img src="<?=$img?>"/>
