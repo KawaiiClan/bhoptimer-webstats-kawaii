@@ -72,22 +72,38 @@ if(preg_match('/^\[U:1:([0-9]+)\]$/', $u, $matches))
 			if($s == -1 && $t == -1)
 			{
 				$stmt5 = $connection->prepare('SELECT map, time, jumps, strafes, sync, date, points, style, track FROM '.MYSQL_PREFIX.'playertimes WHERE auth = '.$auth.$filter.'LIMIT '.PLAYER_PAGE_LIMIT.';');
+				$stmt6 = $connection->prepare('SELECT COUNT(DISTINCT map) FROM '.MYSQL_PREFIX.'playertimes WHERE auth = '.$auth.';');
+				$stmt7 = $connection->prepare('SELECT COUNT(DISTINCT map) FROM '.MYSQL_PREFIX.'mapzones;');
 			}
 			elseif($t == -1)
 			{
 				$stmt5 = $connection->prepare('SELECT map, time, jumps, strafes, sync, date, points, style, track FROM '.MYSQL_PREFIX.'playertimes WHERE auth = '.$auth.' AND style = '.$s.$filter.'LIMIT '.PLAYER_PAGE_LIMIT.';');
+				$stmt6 = $connection->prepare('SELECT COUNT(DISTINCT map) FROM '.MYSQL_PREFIX.'playertimes WHERE auth = '.$auth.' AND style = '.$s.';');
+				$stmt7 = $connection->prepare('SELECT COUNT(DISTINCT map) FROM '.MYSQL_PREFIX.'mapzones;');
 			}
 			elseif($s == -1)
 			{
 				$stmt5 = $connection->prepare('SELECT map, time, jumps, strafes, sync, date, points, style, track FROM '.MYSQL_PREFIX.'playertimes WHERE auth = '.$auth.' AND track = '.$t.$filter.'LIMIT '.PLAYER_PAGE_LIMIT.';');
+				$stmt6 = $connection->prepare('SELECT COUNT(DISTINCT map) FROM '.MYSQL_PREFIX.'playertimes WHERE auth = '.$auth.' AND track = '.$t.';');
+				$stmt7 = $connection->prepare('SELECT COUNT(DISTINCT map) FROM '.MYSQL_PREFIX.'mapzones WHERE track = '.$t.';');
 			}
 			else
 			{
 				$stmt5 = $connection->prepare('SELECT map, time, jumps, strafes, sync, date, points, style, track FROM '.MYSQL_PREFIX.'playertimes WHERE auth = '.$auth.' AND style = '.$s.' AND track = '.$t.$filter.'LIMIT '.PLAYER_PAGE_LIMIT.';');
+				$stmt6 = $connection->prepare('SELECT COUNT(DISTINCT map) FROM '.MYSQL_PREFIX.'playertimes WHERE auth = '.$auth.' AND style = '.$s.' AND track = '.$t.';');
+				$stmt7 = $connection->prepare('SELECT COUNT(DISTINCT map) FROM '.MYSQL_PREFIX.'mapzones WHERE track = '.$t.';');
 			}
 			$stmt5->execute();
 			$stmt5->store_result();
 			$stmt5->bind_result($tmap, $ttime, $tjumps, $tstrafes, $tsync, $tdate, $tpoints, $tstyle, $ttrack);
+			
+			$stmt6->execute();
+			$stmt6->store_result();
+			$stmt6->bind_result($mapsdone);
+			
+			$stmt7->execute();
+			$stmt7->store_result();
+			$stmt7->bind_result($mapstotal);
 ?>
 			<div>
 				<div>
@@ -106,7 +122,11 @@ if(preg_match('/^\[U:1:([0-9]+)\]$/', $u, $matches))
 				</div>
 				<br>
 				<div>
-					<?php include('assets/php/ts-bar.php'); ?>
+<?php
+					include('assets/php/ts-bar.php');
+?>
+					<br>
+					Maps done: <?php while ($row = $stmt6->fetch()) {echo $mapsdone;} ?> / <?php while ($row = $stmt7->fetch()) {echo $mapstotal;} ?>
 					<br><br>
 <?php
 					$rows = $stmt5->num_rows;
