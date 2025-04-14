@@ -4,12 +4,12 @@ $stmt = false;
 if(preg_match('/^\[U:1:([0-9]+)\]$/', $u, $matches))
 {
 	$sid = substr($u, 5, -1);
-	$stmt = $connection->prepare('SELECT auth, name, lastlogin, points, playtime, race_win, race_loss FROM '.MYSQL_PREFIX.'users WHERE auth = ?;');
+	$stmt = $connection->prepare('SELECT auth, name, lastlogin, firstlogin, points, playtime, race_win, race_loss FROM '.MYSQL_PREFIX.'users WHERE auth = ?;');
 	$stmt->bind_param('s', $sid);
 	$stmt->execute();
 	$stmt->store_result();
 	$results = ($rows = $stmt->num_rows) > 0;
-	$stmt->bind_result($auth, $name, $lastlogin, $points, $playtime, $race_win, $race_loss);
+	$stmt->bind_result($auth, $name, $lastlogin, $firstlogin, $points, $playtime, $race_win, $race_loss);
 	if($rows > 0)
 	{
 		while($row = $stmt->fetch())
@@ -22,10 +22,6 @@ if(preg_match('/^\[U:1:([0-9]+)\]$/', $u, $matches))
 			$result = json_decode($response);
 			$img = ($result->response->players != NULL)?$result->response->players[0]->avatarfull:'assets/img/u.png';
 			$personaname = ($result->response->players != NULL)?$result->response->players[0]->personaname:'Unknown';
-			$stmt2 = $connection->prepare('SELECT lastlogin, points FROM '.MYSQL_PREFIX.'users WHERE auth = ' . $auth);
-			$stmt2->execute();
-			$stmt2->store_result();
-			$stmt2->bind_result($lastlogin2, $points2);
 			
 			$connection->query('SET @rank:=0');
 			$stmt3 = $connection->prepare('SELECT rank FROM (SELECT @rank:=@rank+1 AS rank, auth FROM '.MYSQL_PREFIX.'users ORDER BY points DESC) A WHERE auth = ' . $auth);
@@ -113,10 +109,11 @@ if(preg_match('/^\[U:1:([0-9]+)\]$/', $u, $matches))
 					<img src="<?=$img?>"/>
 					<div style="text-align:left; max-width:200px;">
 						Rank: <?php while ($row = $stmt3->fetch()) {echo $rank;} ?>
-						<br><?php while ($row = $stmt2->fetch()) {echo floor($points2);} ?>&nbsppoints
+						<br><?=floor($points)?>&nbsppoints
 						with&nbsp<?php while ($row = $stmt4->fetch()) {echo $times;} ?>&nbsptimes
 						<br>Time Played: <?=formattoseconds($playtime, 1)?>
-						<br>Last Seen: <?=($lastlogin2>0)?date('j M Y', $lastlogin2):'Unknown'?>
+						<br>First Joined: <?=($firstlogin>0)?date('j M Y', $firstlogin):'Unknown'?>
+						<br>Last Seen: <?=($lastlogin>0)?date('j M Y', $lastlogin):'Unknown'?>
 						<br>Races Won: <?=$race_win?>&nbsp&nbspLost: <?=$race_loss?>
 					</div>
 				</div>
@@ -174,8 +171,7 @@ if(preg_match('/^\[U:1:([0-9]+)\]$/', $u, $matches))
 ?>
 				</div>
 			</div>
-<?php 
-			$stmt2->close();
+<?php
 			$stmt3->close();
 			$stmt4->close();
 			$stmt5->close();
