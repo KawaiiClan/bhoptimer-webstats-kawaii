@@ -83,6 +83,15 @@ h3 {
   line-height: 1.1;
   color: #777;
 }
+/*forms*/
+input, select {
+  max-width: 80%;
+  border: 1px solid #999;
+  font-size: 1em;
+  color: #ddd;
+  background-color: #222;
+  border-radius: 0px;
+}
 /*table size*/
 table {
   min-width: 70%;
