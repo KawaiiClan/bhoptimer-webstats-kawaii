@@ -1,6 +1,17 @@
-<?php $img = (file_exists(MAP_SC_DIR.$m.'.jpg')) ? MAP_SC_DIR.$m.'.jpg' : (file_exists(MAP_SC_DIR.$m.'.png') ? MAP_SC_DIR.$m.'.png' : MAP_SC_DIR.'nomap.jpg'); ?>
+<?php $img = (file_exists(MAP_SC_DIR.$m.'.jpg')) ? MAP_SC_DIR.$m.'.jpg' : (file_exists(MAP_SC_DIR.$m.'.png') ? MAP_SC_DIR.$m.'.png' : MAP_SC_DIR.'nomap.jpg');
 
+$stmt = false;
+$stmt = $connection->prepare('SELECT tier FROM '.MYSQL_PREFIX.'maptiers WHERE map = "'.$m.'";');
+$stmt->execute();
+$stmt->store_result();
+$stmt->bind_result($tier);
+while($stmt->fetch())
+{
+	$tier = $tier;
+}
+?>
 <p><h1><?=$m?></h1></p>
+<p><h2>Tier <?=$tier?></h2></p>
 <img src="<?=$img?>"/>
 <br><br>
 <?php
