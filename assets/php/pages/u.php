@@ -4,12 +4,26 @@ $stmt = false;
 if(preg_match('/^\[U:1:([0-9]+)\]$/', $u, $matches))
 {
 	$sid = substr($u, 5, -1);
-	$stmt = $connection->prepare('SELECT auth, name, lastlogin, firstlogin, points, playtime, race_win, race_loss FROM '.MYSQL_PREFIX.'users WHERE auth = ?;');
+	if($races)
+	{
+		$stmt = $connection->prepare('SELECT auth, name, lastlogin, firstlogin, points, playtime, race_win, race_loss FROM '.MYSQL_PREFIX.'users WHERE auth = ?;');
+	}
+	else
+	{
+		$stmt = $connection->prepare('SELECT auth, name, lastlogin, firstlogin, points, playtime, FROM '.MYSQL_PREFIX.'users WHERE auth = ?;');
+	}
 	$stmt->bind_param('s', $sid);
 	$stmt->execute();
 	$stmt->store_result();
 	$results = ($rows = $stmt->num_rows) > 0;
-	$stmt->bind_result($auth, $name, $lastlogin, $firstlogin, $points, $playtime, $race_win, $race_loss);
+	if($races)
+	{
+		$stmt->bind_result($auth, $name, $lastlogin, $firstlogin, $points, $playtime, $race_win, $race_loss);
+	}
+	else
+	{
+		$stmt->bind_result($auth, $name, $lastlogin, $firstlogin, $points, $playtime);
+	}
 	if($rows > 0)
 	{
 		while($row = $stmt->fetch())
@@ -114,7 +128,12 @@ if(preg_match('/^\[U:1:([0-9]+)\]$/', $u, $matches))
 						<br>Time Played: <?=formattoseconds($playtime, 1)?>
 						<br>First Joined: <?=($firstlogin>0)?date('j M Y', $firstlogin):'Unknown'?>
 						<br>Last Seen: <?=($lastlogin>0)?date('j M Y', $lastlogin):'Unknown'?>
-						<br>Races Won: <?=$race_win?>&nbsp&nbspLost: <?=$race_loss?>
+<?php
+						if($races)
+						{
+							echo("<br>Races Won: $race_win&nbsp&nbspLost: $race_loss");
+						}
+?>
 					</div>
 				</div>
 				<br>
