@@ -35,22 +35,20 @@ $tracks =
 	8 => 'Bonus8',
 ];
 
-//server stuff
-if($sv == 'bhop')
-{
-	//db
-	define('DB_HOST', '');
-	define('DB_USER', '');
-	define('DB_PASSWORD', '');
-	define('DB_SCHEMA', '');
-	//this one is often left blank, unless you have a prefix in your db (i guess some server hosts do this?)
-	define('MYSQL_PREFIX', '');
-	
-	//steam link to join game server with (just replace "kawaiiclan.com:27015" with your game server IP:port
-	define('SERVER_IP', 'steam://connect/kawaiiclan.com:27015');
-	
-	$styles =
-	[
+//db
+define('DB_HOST', '');
+define('DB_USER', '');
+define('DB_PASSWORD', '');
+define('DB_SCHEMA', '');
+//this one is often left blank, unless you have a prefix in your db (i guess some server hosts do this?)
+define('MYSQL_PREFIX', '');
+
+//steam link to join game server with (just replace "kawaiiclan.com:27015" with your game server IP:port
+define('SERVER_IP', 'steam://connect/kawaiiclan.com:27015');
+
+//the style IDs must match what you have set in shavit-styles.cfg
+$styles =
+[
 	-1 => "All Styles",
 	0 => "Normal",
 	8 => "Scroll",
@@ -73,51 +71,14 @@ if($sv == 'bhop')
 	19 => "Speedrun",
 	14 => "Segmented",
 	16 => "TAS"
-	];
-	
-	//default track and style displayed on the map page
-	define('DEFAULT_TRACK', 0);
-	define('DEFAULT_STYLE', 0);
-}
-elseif($sv == 'climb')
-{
-	//db
-	define('DB_HOST', '');
-	define('DB_USER', '');
-	define('DB_PASSWORD', '');
-	define('DB_SCHEMA', '');
-	//this one is often left blank, unless you have a prefix in your db (i guess some server hosts do this?)
-	define('MYSQL_PREFIX', '');
-	
-	//steam link to join game server with (just replace "kawaiiclan.com:27015" with your game server IP:port
-	define('SERVER_IP', 'steam://connect/kawaiiclan.com:27016');
-	
-	$styles =
-	[
-	-1 => "All Styles",
-	3 => "Normal Pro",
-	0 => "Normal",
-	7 => "Strafe Pro",
-	6 => "Strafe",
-	11 => "10aa Pro",
-	10 => "10aa",
-	16 => "Vanilla Pro",
-	15 => "Vanilla",
-	4 => "Sideways Pro",
-	1 => "Sideways",
-	5 => "W-Only Pro",
-	2 => "W-Only",
-	18 => "A/D Only Pro",
-	17 => "A/D Only",
-	9 => "Low Gravity Pro",
-	8 => "Low Gravity",
-	14 => "Segmented"
-	];
-	
-	//default track and style displayed on the map page
-	define('DEFAULT_TRACK', 0);
-	define('DEFAULT_STYLE', 3);
-}
+];
+
+//if you use the shavit-challenge plugin for races, change this to 1
+$races = 0;
+
+//default track and style displayed on the map page
+define('DEFAULT_TRACK', 0);
+define('DEFAULT_STYLE', 0);
 
 //options for sorting times, logic needed for these, so you can't really add to it easily. more to come probably
 $filters =
