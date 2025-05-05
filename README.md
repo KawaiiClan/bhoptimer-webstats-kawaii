@@ -1,5 +1,5 @@
 <h1>bhoptimer webstats redux!!</h1>
-<p>For use with bhoptimer (https://github.com/shavitush/bhoptimer)</p>
+<p>For use with <a href="https://github.com/shavitush/bhoptimer">bhoptimer</a></p>
 <p>Made for KawaiiClan, released for everyone~</p>
 <a href="https://kawaiiclan.com/stats">Live demo</a>
 <h1>Installation:</h1>
